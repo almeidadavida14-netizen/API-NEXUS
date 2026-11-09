@@ -1,0 +1,44 @@
+EVOM NEXUS — ATUALIZAÇÃO DO PUBLICADOR DE MENSAGENS
+====================================================
+
+Implementado nesta atualização
+-------------------------------
+- O editor geral ganhou a ação "Publicar mensagem".
+- O fluxo permite selecionar um canal de texto e publicar uma nova mensagem.
+- Também permite atualizar uma mensagem previamente publicada pelo próprio editor.
+- As publicações são registradas na tabela message_publications do mesmo SQLite configurado pelo projeto.
+- A atualização exige que a mensagem esteja registrada para a mesma chave de mensagem, seja recuperável no canal original e pertença ao próprio bot. Se não for possível validar isso, a operação é bloqueada e a interface orienta publicar uma nova.
+- As personalizações de título, descrição, cor e rodapé continuam em message_customizations.
+- O painel de filas foi integrado usando QueuePanelView e os callbacks originais. A montagem dinâmica de nomes/contagens foi preservada; apenas título, descrição, cor e rodapé são aplicados pelo editor.
+- O painel de recrutamento usa ApplyView e o RecruitmentSystem existentes. O botão Candidatar-se continua abrindo o modal original.
+- A mensagem informativa de recrutamento pode ser publicada sem componentes.
+
+Arquivos alterados
+------------------
+- message_editor.py — ação, seleção de canal, publicação/atualização e registro persistente.
+- main.py — aplica a personalização visual do editor ao embed dinâmico das filas sem remover campos ou trocar a view original.
+
+Arquivos criados
+----------------
+- ATUALIZACAO_PUBLICADOR_MENSAGENS.txt — este relatório.
+
+Integrações concluídas nesta versão
+-----------------------------------
+- recruitment_panel: ApplyView / fluxo de candidatura original.
+- recruitment_info: mensagem informativa sem componentes.
+- queue_messages: QueuePanelView / callbacks originais de entrada, saída e status.
+
+Limitações explícitas
+---------------------
+- X-TREINO: não foi liberado para publicação genérica. Os controles públicos são vinculados a um evento específico (event_id), estado de inscrição e registros do XTreinoSystem. Publicar um painel sem selecionar e vincular um evento existente poderia criar controles sem contexto ou apontar para um evento errado. A integração segura exige um seletor de evento e uso do fluxo original de anúncio.
+- Sorteios: o catálogo atual não apresenta uma fábrica de view pública genérica identificável e segura para essa chave. Não foi criado botão substituto.
+- Avisos administrativos de candidatura e mensagens de candidatura: dependem de dados reais de um candidato/registro; não são publicados como painéis genéricos.
+- Mensagens anteriores não registradas por esta função não podem ser atualizadas automaticamente. Isso evita editar uma mensagem errada. Publique uma nova mensagem pelo editor para passar a ter rastreamento.
+- A tabela de rastreamento é criada com CREATE TABLE IF NOT EXISTS; não há migração destrutiva nem remoção de tabelas/dados existentes.
+
+Verificações executadas
+-----------------------
+- Compilação de todos os arquivos Python: aprovada.
+- Testes automatizados do projeto: 9 aprovados, 1 ignorado, 4 subtestes aprovados.
+- Teste real contra API do Discord, permissões de servidor, publicação e callbacks em ambiente conectado: não executado nesta sessão. Portanto, não declarar esses fluxos como validados em produção.
+- Nenhum arquivo .env/token.txt/secrets.json foi encontrado no ZIP de entrada. Não foram adicionadas credenciais.

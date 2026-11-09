@@ -1,0 +1,19 @@
+EVOM NEXUS — Atualização do módulo de partidas
+
+1. Comando de prefixo `.ap`
+- Reutiliza o comando existente; não registra um segundo comando com o mesmo nome.
+- Seleção de modo 1v1, 2x2, 3x3 ou 4x4 e seleção de jogadores.
+- Cria uma categoria reutilizável e um canal individual `partida-NNN` para cada partida.
+- Permite várias partidas simultâneas, cada uma com registro próprio no SQLite.
+- Os participantes podem enviar prints no canal; a ADM confirma o encerramento pelo botão.
+- Após a confirmação da ADM, o canal da partida é excluído após 40 segundos.
+- A categoria de partidas só é excluída se estiver vazia.
+- Os botões das partidas pendentes são registrados para restauração após reinício.
+- Este módulo organiza partidas e pontos internos; não automatiza pagamentos em dinheiro nem pagamentos vinculados ao resultado.
+
+2. Guerra de Guilda
+- Mantido o módulo `guild_war.py` e os comandos existentes `/abrir_lines` e `/painel_guildwar`.
+
+Validação desta edição:
+- `python -m py_compile apostados.py`: passou.
+- Não foi possível testar a interação real com Discord neste ambiente; requer dependências, token e servidor de teste.

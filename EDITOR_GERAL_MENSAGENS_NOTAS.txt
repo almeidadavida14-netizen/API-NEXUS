@@ -1,0 +1,26 @@
+EVOM NEXUS — EDITOR GERAL DE MENSAGENS
+
+Acesso: comando /paineldono > Personalizar mensagens.
+
+Editáveis e conectadas nesta versão:
+- Recrutamento: embed do painel de recrutamento (aplicado quando o painel for criado), informações do teste (aplicado quando a mensagem for criada), aviso de nova candidatura enviado à ADM.
+- Anúncios: embed NOVO MEMBRO NA ALL EVOM (próximos anúncios de aprovação).
+
+O editor permite título, descrição/texto, cor hexadecimal e rodapé; possui prévia efêmera e restauração individual do padrão. As alterações são persistidas na tabela message_customizations do banco SQLite já configurado pelo projeto.
+
+Listadas, mas marcadas como não editáveis nesta versão por estarem vinculadas a modais, estados, componentes interativos ou fluxos que não foram alterados:
+- Candidatura/formulário (título e campos do modal).
+- Aviso de candidatura para avaliação com componentes de teste.
+- Mensagens de X-TREINO.
+- Mensagens das filas.
+- Mensagens de sorteios e resultados.
+- Mensagens automáticas não mapeadas individualmente.
+
+Observação: personalizações afetam novas mensagens geradas pelos pontos conectados; não editam retroativamente mensagens já publicadas. O painel de recrutamento existente no servidor também não é reescrito automaticamente.
+
+Arquivos adicionados/alterados nesta etapa:
+- message_editor.py (novo)
+- owner_panel.py (nova categoria no painel do dono)
+- recruitment.py (conexão dos templates aos envios seguros de recrutamento/anúncio)
+
+O comando prefixado !partida em apostados.py e o comando slash /partida em main.py são namespaces diferentes, não duplicações entre si. Nenhum foi alterado.

@@ -1,0 +1,24 @@
+EVOM NEXUS - ATUALIZACAO INTEGRADA
+
+Alteracoes nesta versao:
+- Candidatura: o aviso de nova candidatura e removido ao aceitar (depois de criar o canal privado) ou recusar.
+- Testes: aprovacao e reprovacao ficam restritas ao ADM responsavel registrado no banco; canal de teste recebe prazo de exclusao de 40 segundos nos dois resultados.
+- Participacao do teste: o responsavel pode selecionar um ADM/staff para entrar no canal sem receber permissao de aprovar/reprovar. Transferencia da responsabilidade exige dono do servidor ou ADM com cargo superior ao responsavel atual.
+- Anuncios: seletor de canal e botao separado para confirmar; flag de envio persistida e reserva atomica para reduzir duplicidade.
+- Candidatos: pesquisa mantida; painel ganhou visualizacao paginada de todos os cadastros; remocao da lista restrita a candidaturas reprovadas.
+- Ranking: removido o modulo de ranking do carregamento e do projeto, comandos de ranking e hall-da-fama removidos do registro.
+- AP/Salinha: removidos dos paineis e das escolhas de fila; entradas antigas sao limpas e canais legados sao excluidos quando o bot iniciar.
+- X-TREINO: botao no painel principal; canal proprio criado somente ao clicar; painel ADM com criar treino, treinos ativos, anunciar treino pendente, configuracoes e cancelar X-TREINO.
+- X-TREINO: modalidades 1v1/2v2/3v3/4v4, 4/8/16 equipes, mapa/horario, anuncios com canal selecionado e confirmacao separada, inscricao apenas para cargo Membro Oficial, lista de participantes, sorteio e novo sorteio antes do inicio do chaveamento, canais de voz por equipe e chaveamento por rodadas.
+- X-TREINO: resultado final grava uma vitoria para os jogadores da equipe campea e derrota para os demais participantes; comando .xt separado do .ip.
+- Comandos: limpeza de comandos antigos por servidor e sincronizacao do conjunto global para reduzir duplicatas.
+- Preservados: /ban, /partida, .partida, .ip, torneios e os demais modulos nao solicitados para remocao.
+
+Verificacoes feitas neste ambiente:
+- Compilacao sintatica dos modulos Python alterados: aprovada.
+- Analise AST dos comandos slash no codigo: nenhum nome duplicado encontrado.
+- Testes pytest disponiveis sem discord.py: 9 passaram e 4 subtestes passaram.
+- Teste de inicializacao/interacoes reais do Discord nao foi possivel neste ambiente porque discord.py nao esta instalado e nao houve acesso de rede para instalar a dependencia. Instalar requirements.txt na hospedagem e testar os botoes no servidor antes de uso em producao.
+
+Observacao de permissao do Discord:
+- Membros com a permissao nativa Administrator conseguem visualizar canais privados independentemente dos overwrites do canal. Mesmo assim, os botoes de aprovar/reprovar verificam o ID do ADM responsavel e bloqueiam os demais. O bot concede acesso explicito ao candidato, responsavel e ADM selecionado.

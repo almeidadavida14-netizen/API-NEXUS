@@ -1,0 +1,14 @@
+EVOM NEXUS — ajustes V3
+
+1. /perfilff
+- HTTP 403 da hospedagem da API agora é identificado como bloqueio de acesso.
+- Evita repetir consultas de região quando a própria API devolve 403.
+- A mensagem esclarece que o bloqueio não confirma UID ou região incorretos.
+
+2. Gerenciador de missões
+- Os formulários usam no máximo 5 campos no modal de criação; validade padrão de 72 horas.
+- Falhas ao abrir/processar formulários são registradas no log e o bot tenta responder com uma mensagem visível.
+- Painel de filas não foi alterado.
+
+Validação local: compileall passou; PYTHONPATH=. python -m pytest -q: 9 passed, 1 skipped, 4 subtests passed.
+Limitações: não foi possível validar as interações no servidor Discord real; o teste ignorado depende da biblioteca discord.py no ambiente de teste. O HTTP 403 da API externa não pode ser corrigido apenas pelo bot: o serviço de hospedagem/API precisa permitir as requisições.

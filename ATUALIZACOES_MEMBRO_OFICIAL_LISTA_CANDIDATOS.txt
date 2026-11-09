@@ -1,0 +1,9 @@
+ATUALIZACOES EVOM NEXUS
+
+- Removidos os comandos /perfilff e /lista_jogadores.
+- Adicionado /lista_candidatos, restrito à ADM/equipe, que mostra as candidaturas guardadas no banco do bot e o estado de cada candidatura.
+- As candidaturas continuam guardadas no SQLite mesmo após a exclusão do canal privado de candidatura.
+- Ao clicar em “Aprovado”, o bot tenta criar/normalizar o cargo “💎 Membro Oficial” e atribuí-lo ao candidato.
+- Se o bot não conseguir atribuir o cargo, a mensagem explica que é necessário conferir Gerenciar Cargos e a hierarquia dos cargos.
+
+Observação: o comando só consegue mostrar candidaturas que existam no banco de dados persistente usado pelo bot em execução. Os registros antigos não são recuperáveis apenas a partir do ZIP se estiverem somente em canais apagados ou em um banco que não foi incluído.

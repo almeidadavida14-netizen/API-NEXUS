@@ -1,0 +1,45 @@
+ATUALIZAÇÕES EVOM NEXUS
+
+Incluído nesta versão:
+- Recrutamento: categoria 🎯・RECRUTAMENTO, painel 📋・recrutamento e canal informativo 🎮・fazer-teste.
+- Botão de candidatura com formulário, canal privado por candidato e registro em tabela SQLite nova (reutiliza o banco configurado pelo bot).
+- Controles da equipe para aceitar o teste, recusar candidatura e aprovar.
+- Na aprovação, seletor de canal e anúncio pré-preenchido com nome/nick, ID Free Fire, ID Discord, modo do teste e ADM responsável; publicação só ocorre ao clicar em Enviar anúncio.
+- Confirmação de partida: todos os jogadores devem digitar `on` no canal da partida em até 3 minutos; se alguém não confirmar, o bot cancela somente aquela partida e tenta excluir seus canais associados.
+
+IMPORTANTE:
+- Faça backup dos arquivos e do banco SQLite antes de atualizar a hospedagem.
+- Esta cópia foi validada com compilação estática Python (py_compile). Não foi possível executar teste de integração real com Discord nesta sessão porque discord.py não está instalado no ambiente de teste e não há token/servidor de teste conectado.
+- O timeout de confirmação começa quando a partida é criada. Se o processo reiniciar durante os 3 minutos, a confirmação pendente não é restaurada automaticamente; confira isso antes de usar em produção.
+- Confira as permissões de cargos de equipe e permissões do bot no Discord.
+
+
+Atualização de recrutamento preparada nesta revisão:
+- Botões separados: “✅ Aprovado” e “📣 Anunciar”; o anúncio não aprova automaticamente.
+- O anúncio público só pode ser enviado depois de marcar a candidatura como aprovada.
+- Ao reprovar, o bot informa o resultado no canal privado e programa a exclusão do canal após 1 minuto.
+- Ao anunciar um candidato aprovado, o bot avisa no canal privado que ele será excluído em 1 minuto e programa a exclusão.
+- Criada tabela SQLite recruitment_events para registrar candidatura, aceite do teste, aprovação/reprovação, anúncio e resultado da exclusão.
+- O bot bloqueia um segundo anúncio para a mesma candidatura.
+- Validação estática com py_compile realizada; não foi possível testar interações reais em servidor Discord nesta sessão.
+
+RANKING EVOM NEXUS (planejado e integrado nesta versão)
+- /ranking: consulta ranking semanal ou mensal.
+- /meuspontos: consulta pontos de partidas, guerra, vitórias e posição mensal.
+- /ranking-canal: ADM define canal de publicação automática.
+- /ranking-configurar-pontos: ADM define pontos de vitória por modalidade.
+- /ranking-registrar-partida: ADM vincula uma partida concluída e aplica pontos aos vencedores; duplicidade bloqueada.
+- /ranking-guerra: ADM registra pontos individuais da guerra de guilda.
+- /ranking-mvp: ADM decide o MVP em caso de empate.
+- Publicação semanal na virada de domingo e mensal no primeiro dia do mês (horário de Brasília).
+- Histórico de pontuações fica em tabelas próprias no SQLite; não apaga os dados existentes.
+
+
+Revisão complementar do gerenciador de missões (2026-10-30):
+- Adicionado botão público “Enviar resultado” nas publicações de missão, permitindo que jogadores enviem resultados sem acesso administrativo.
+- Adicionada tabela de auditoria `evom_mission_audit` com ações de criação/encerramento de missão, envio de resultado e análise por ADM; tabela criada com `IF NOT EXISTS`.
+- A listagem agora mostra missões abertas e encerradas.
+- Bloqueada a aprovação de resultados após o encerramento da missão, para evitar mensagens de aprovação sem crédito de pontos.
+- Mantido o crédito no sistema de ranking existente (`evom_ranking_events`) e a chave idempotente por resultado.
+- Verificações nesta sessão: compilação de todos os 14 arquivos Python; pytest: 5 passed, 1 skipped e 4 subtests passed; análise AST de 21 registros de comandos slash sem nomes duplicados.
+- Limitações: não houve conexão real ao Discord nem teste de hospedagem. O teste específico `tests/test_missions.py` foi ignorado pelo pytest porque a dependência `discord.py` não está disponível neste ambiente. O fluxo completo de recrutamento/lista de jogadores e as permissões reais por categoria/cargo precisam ser validados com a configuração real do servidor antes da produção.

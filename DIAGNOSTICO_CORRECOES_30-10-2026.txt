@@ -1,0 +1,20 @@
+EVOM NEXUS - correções direcionadas
+
+Preservado sem alteração: painel de filas e lógica das filas.
+
+Gerenciador de missões:
+- Botões do painel agora usam custom_id estáveis e view persistente (timeout=None).
+- View do gerenciador é registrada no setup_hook para continuar respondendo após reinício.
+- Corrigida a verificação do botão de enviar resultado para identificar o custom_id, não o texto/emoji do botão.
+
+Perfil Free Fire:
+- Consulta /api/region e fallback /api/nick continuam em primeiro lugar.
+- Se os endpoints de descoberta falharem ou não informarem região, tenta /api/info_player nas regiões documentadas: br, sac, latam, us, na.
+- Erros agora informam melhor se falhou a descoberta de região ou a consulta do perfil.
+- Não usa login, token, senha nem endpoints que alteram conta.
+
+Validação local:
+- python -m compileall -q .: passou
+- pytest: 9 passed, 1 skipped, 4 subtests passed
+
+Limitação: não foi possível testar a API externa nem interações no Discord real neste ambiente. Não foram alterados os arquivos da lógica de filas.
